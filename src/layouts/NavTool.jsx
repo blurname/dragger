@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Col } from 'antd';
+import { Col } from 'antd';
 function NavTool() {
   return (
     <div

@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import logo from './logo.svg';
 import './App.css';
-
+import NavTool from './layouts/NavTool';
+import { Divider, Row } from 'antd';
+import LeftSide from './layouts/LeftSide';
+import Canvas from './layouts/Canvas';
+import RightSide from './layouts/RightSide';
 function App() {
   const [count, setCount] = useState(0);
 
