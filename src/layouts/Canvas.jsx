@@ -4,17 +4,24 @@ import CList from '../components/ComponentList';
 function Canvas() {
   const dropHandler = e => {
     e.preventDefault();
-    e.stopPropagation();
-    let addingCmp = e.dataTransfer.getData('add-component');
+    let addingCmp = e.dataTransfer.getData('add-cmp');
     addingCmp = JSON.parse(addingCmp);
-    setCmps([
-      () => {
-        newCmp = CList.filter(x => {
-          x.type == type;
-        });
-        return [...Cmps, newCmp];
-      },
-    ]);
+    setCmps(() => {
+      console.log('hellow');
+      const newCmp = CList.filter(x => {
+        return x.props.id === addingCmp.type;
+      });
+      console.log(newCmp[0]);
+      const nn = React.cloneElement(newCmp[0], {
+        style: {
+          position: 'absolute',
+          left: e.pageX,
+          top: e.pageY,
+        },
+      });
+      console.log(nn);
+      return [...Cmps, nn];
+    });
   };
   const dragOverHandler = e => {
     e.preventDefault();
@@ -22,12 +29,20 @@ function Canvas() {
 
   const [Cmps, setCmps] = useState([]);
   return (
-    <Col
-      className=""
-      span={17}
-      style={{ height: 700, width: 20, background: '#556644' }}
-    >
-      <div onDrop={dropHandler} onDragOver={dragOverHandler}></div>
+    <Col span={17}>
+      <div
+        className=""
+        style={{
+          position: 'absolute',
+          height: 700,
+          width: 1350,
+          background: '#556644',
+        }}
+        onDrop={dropHandler}
+        onDragOver={dragOverHandler}
+      >
+        {Cmps.map(item => item)}
+      </div>
     </Col>
   );
 }
