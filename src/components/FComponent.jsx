@@ -2,20 +2,26 @@ import { Button } from 'antd';
 import React, { DragEventHandler, ReactNode } from 'react';
 const dragStartHandler = e => {
   let pageX = e.pageX;
-  let pageY = e.pageY;
-  let type = e.target.id;
+  let pageY = 0;
+  let id = e.target.id;
+  console.log(e.clientY);
   // console.log(JSON.stringify({ pageX, pageY, type }));
-  e.dataTransfer.setData('add-cmp', JSON.stringify({ pageX, pageY, type }));
+  e.dataTransfer.setData('add-cmp', JSON.stringify({ pageX, pageY, id }));
   console.log('fromGetData' + e.dataTransfer.getData('add-cmp'));
   e.dataTransfer.effectAllowed = 'copy';
 };
-function FComponent({ children, style, id }) {
+const dragHandler = e => {
+  e.preventDefault();
+  console.log(e.pageY);
+};
+function FComponent({ id, children, style }) {
   return (
     <Button
-      style={{ ...style, margin: 10, width: 70 }}
+      style={{ margin: 10, width: 70, ...style }}
       draggable="true"
-      onDragStart={dragStartHandler}
       id={id}
+      // onDrag={dragHandler}
+      onDragStart={dragStartHandler}
     >
       {children}
     </Button>

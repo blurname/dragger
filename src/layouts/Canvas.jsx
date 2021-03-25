@@ -7,33 +7,34 @@ function Canvas() {
     let addingCmp = e.dataTransfer.getData('add-cmp');
     addingCmp = JSON.parse(addingCmp);
     setCmps(() => {
-      console.log('hellow');
       const newCmp = CList.filter(x => {
-        return x.props.id === addingCmp.type;
+        return x.props.id === addingCmp.id;
       });
-      console.log(newCmp[0]);
+
+      console.log('PastpageY' + e.clientX);
+      console.log('NowpageY' + e.pageX);
       const nn = React.cloneElement(newCmp[0], {
         style: {
           position: 'absolute',
-          left: e.pageX,
-          top: e.pageY,
+          left: e.pageX - 254,
+          top: e.pageY - 119 - 20,
         },
       });
-      console.log(nn);
       return [...Cmps, nn];
     });
   };
   const dragOverHandler = e => {
     e.preventDefault();
+    console.log(e.pageX);
+    // console.log(e.pageY);
   };
 
   const [Cmps, setCmps] = useState([]);
   return (
     <Col span={17}>
       <div
-        className=""
         style={{
-          position: 'absolute',
+          position: 'relative',
           height: 700,
           width: 1350,
           background: '#556644',
